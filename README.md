@@ -1,3 +1,17 @@
+---
+title: Iris Medical Ai
+emoji: 💬
+colorFrom: yellow
+colorTo: purple
+sdk: gradio
+sdk_version: 6.5.1
+app_file: app.py
+pinned: false
+hf_oauth: true
+hf_oauth_scopes:
+- inference-api
+---
+
 # Iris Medical AI 
 
 A voice-interactive medical diagnosis assistant that combines a fine-tuned LLM with an XGBoost classifier to deliver confidence-gated, explainable diagnoses from natural language symptom descriptions.
