@@ -2,7 +2,7 @@ import os
 import gradio as gr
 from huggingface_hub import InferenceClient
 
-client = InferenceClient(model="Mystique03/medical-qwen3-4b-lora", token=os.environ.get("HF_TOKEN"))
+client = InferenceClient(model="Mystique03/medical-qwen3-4b-gguf", token=os.environ.get("HF_TOKEN"))
 
 def respond(prompt: str) -> str:
     output = client.chat_completion(
