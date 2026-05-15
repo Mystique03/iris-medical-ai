@@ -1,69 +1,33 @@
 import gradio as gr
-from huggingface_hub import InferenceClient
+from llama_cpp import Llama
+from huggingface_hub import hf_hub_download
 
-
-def respond(
-    message,
-    history: list[dict[str, str]],
-    system_message,
-    max_tokens,
-    temperature,
-    top_p,
-    hf_token: gr.OAuthToken,
-):
-    """
-    For more information on `huggingface_hub` Inference API support, please check the docs: https://huggingface.co/docs/huggingface_hub/v0.22.2/en/guides/inference
-    """
-    client = InferenceClient(token=hf_token.token, model="openai/gpt-oss-20b")
-
-    messages = [{"role": "system", "content": system_message}]
-
-    messages.extend(history)
-
-    messages.append({"role": "user", "content": message})
-
-    response = ""
-
-    for message in client.chat_completion(
-        messages,
-        max_tokens=max_tokens,
-        stream=True,
-        temperature=temperature,
-        top_p=top_p,
-    ):
-        choices = message.choices
-        token = ""
-        if len(choices) and choices[0].delta.content:
-            token = choices[0].delta.content
-
-        response += token
-        yield response
-
-
-"""
-For information on how to customize the ChatInterface, peruse the gradio docs: https://www.gradio.app/docs/chatinterface
-"""
-chatbot = gr.ChatInterface(
-    respond,
-    additional_inputs=[
-        gr.Textbox(value="You are a friendly Chatbot.", label="System message"),
-        gr.Slider(minimum=1, maximum=2048, value=512, step=1, label="Max new tokens"),
-        gr.Slider(minimum=0.1, maximum=4.0, value=0.7, step=0.1, label="Temperature"),
-        gr.Slider(
-            minimum=0.1,
-            maximum=1.0,
-            value=0.95,
-            step=0.05,
-            label="Top-p (nucleus sampling)",
-        ),
-    ],
+model_path = hf_hub_download(
+    repo_id = "Mystique03/iris-qwen3-4b-gguf",
+    filename = "qwen3-4b-instruct-2507.Q4_K_M.gguf",
 )
 
-with gr.Blocks() as demo:
-    with gr.Sidebar():
-        gr.LoginButton()
-    chatbot.render()
+llm = Llama(
+    model_path = model_path,
+    n_ctx = 1024,
+    n_threads = 4,
+    verbose = False,
+)
 
+def respond(prompt: str) -> str:
+    output = llm.create_chat_completion(
+        messages = [
+            {"role": "user", "content": prompt}
+        ],
+        max_tokens = 250,
+        temperature = 0.7,
+    )
+    return output.choices[0].message.content.strip()
 
-if __name__ == "__main__":
-    demo.launch()
+gr.Interface(
+    fn = respond,
+    inputs = gr.Textbox(lines=10, label="Enter your concern here"),
+    outputs = gr.Textbox(lines=10, label="Response"),
+    title = "Iris - Medical Assistant",
+    description = "Ask Iris for medical advice based on symptoms and predictions.",
+).launch()
