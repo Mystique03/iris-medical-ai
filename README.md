@@ -1,5 +1,5 @@
 ---
-title: Gradio Chatbot
+title: Iris Medical Ai
 emoji: 💬
 colorFrom: yellow
 colorTo: purple
