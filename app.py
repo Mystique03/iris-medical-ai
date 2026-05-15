@@ -34,5 +34,4 @@ gr.Interface(
     outputs=gr.Textbox(lines=10, label="Response"),
     title="Iris - Medical Assistant",
     description="Ask Iris for medical advice.",
-    share=True,
 ).launch(server_name="0.0.0.0", server_port=7860)
