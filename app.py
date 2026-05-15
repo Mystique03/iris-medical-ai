@@ -4,7 +4,7 @@ from huggingface_hub import hf_hub_download
 
 model_path = hf_hub_download(
     repo_id="Mystique03/iris-qwen3-4b-gguf",
-    filename="qwen3-4b-instruct-2507.Q4_K_M.gguf",
+    filename="iris-qwen3-4b-merged.Q4_K_M.gguf",
 )
 
 llm = Llama(
