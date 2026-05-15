@@ -11,7 +11,7 @@ import pandas as pd
 
 optuna.logging.set_verbosity(optuna.logging.WARNING)
 
-DATA_DIR = Path(__file__).parent / "data"
+DATA_DIR = Path(__file__).parent.parent / "data"
 PARAMS_FILE = DATA_DIR / "best_params.json"
 
 def load_and_train():

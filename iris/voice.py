@@ -2,7 +2,7 @@ import speech_recognition as sr
 
 _recognizer = sr.Recognizer()
 
-def listen(prompt):
+def listen(prompt=None):
     if prompt:
         print(f"Iris: {prompt}")
     try:
@@ -10,7 +10,7 @@ def listen(prompt):
             _recognizer.adjust_for_ambient_noise(source, duration=0.5)
             print("Listening...")
             audio = _recognizer.listen(source, timeout=10, phrase_time_limit=15)
-        text = _recognizer.recognize_goole(audio)
+        text = _recognizer.recognize_google(audio)
         print(f"You: {text}")
         return text
     except (sr.WaitTimeoutError, sr.UnknownValueError):
