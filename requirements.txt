@@ -1,2 +1,8 @@
-gradio
-huggingface_hub
+xgboost
+scikit-learn
+optuna
+numpy
+pandas
+SpeechRecognition
+requests
+python-dotenv
