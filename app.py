@@ -18,7 +18,7 @@ def respond(prompt: str) -> str:
     try:
         output = llm.create_chat_completion(
             messages=[
-                {"role": "system", "content": "You are a helpful medical assistant. Answer the patient's concern clearly and carefully."},
+                {"role": "system", "content": "If you are a doctor, please answer the medical questions based on the patient's description."},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=250,
