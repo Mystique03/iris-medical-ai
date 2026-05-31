@@ -14,7 +14,7 @@ hf_oauth_scopes:
 
 A voice-interactive medical diagnosis assistant that combines a fine-tuned LLM with an XGBoost classifier to deliver confidence-gated, explainable diagnoses from natural language symptom descriptions.
 
-> **Try it live:** [HF Spaces link] | **Demo:** [screenshot/gif]
+> **Try it live:** Coming soon
 
 ---
 
@@ -26,28 +26,6 @@ This is v3 of the Iris project. [v2](https://github.com/Mystique03/iris-improved
 
 ---
 
-## Architecture
-
-```
-User (voice) → STT → Symptom text
-                           ↓
-                   XGBoost Classifier
-                   (top 3 predictions + confidence scores)
-                           ↓
-              ┌────────────┴─────────────┐
-          confidence < 40%          confidence ≥ 40%
-              ↓                          ↓
-      "Consult a doctor"       Fine-tuned Qwen3-4B
-      (guardrail blocks LLM)   reasons over ML output
-                                         ↓
-                               Diagnosis + Treatment
-                                         ↓
-                                  User asks for diet?
-                                         ↓
-                               Same LLM → Diet chart
-```
-
----
 
 ## ML Model — XGBoost Classifier
 
@@ -60,7 +38,6 @@ User (voice) → STT → Symptom text
 | Validation | 20% split from `Training.csv` |
 | Evaluation | Held-out `Testing.csv` |
 
-Hyperparameters tuned: `n_estimators`, `max_depth`, `learning_rate`, `subsample`, `colsample_bytree`, `gamma`, `reg_alpha`, `reg_lambda`. 
 
 ---
 
@@ -76,7 +53,7 @@ Hyperparameters tuned: `n_estimators`, `max_depth`, `learning_rate`, `subsample`
 | Deployment | HuggingFace Spaces |
 | Tracking | Weights & Biases |
 
-The model is trained only on assistant responses (`train_on_responses_only`) using the Qwen3 chat template. Quantized to GGUF Q4_K_M for efficient CPU inference on HF Spaces free tier.
+The model is trained only on assistant responses (`train_on_responses_only`) using the Qwen3 chat template
 
 **Fine-tuning repo:** [Mystique03/medical-qwen3-4b-lora](https://huggingface.co/Mystique03/medical-qwen3-4b-lora)
 
