@@ -1,8 +1,16 @@
-xgboost
-scikit-learn
-optuna
-numpy
-pandas
-SpeechRecognition
+gradio
+huggingface_hub
 requests
 python-dotenv
+SpeechRecognition
+
+# HF Space inference (installed via Dockerfile extra-index-url)
+# llama-cpp-python
+
+# ML model (optional, for local training)
+#xgboost
+#scikit-learn
+#optuna
+#numpy
+#pandas
+#rapidfuzz

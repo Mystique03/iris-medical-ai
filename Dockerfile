@@ -7,6 +7,7 @@ RUN pip install --no-cache-dir \
     huggingface_hub \
     llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
 
+COPY iris/ ./iris/
 COPY app.py .
 
 RUN useradd -m -u 1000 user
